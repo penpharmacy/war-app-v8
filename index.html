@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คำนวณขนาดยา Warfarin</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <div class="app">
+    <h1>คำนวณขนาดยา Warfarin</h1>
+    <div class="form-section">
+      <label>ค่า INR ล่าสุด: <input type="number" id="inr" step="0.1" /></label>
+      <label>ขนาดยาเดิม (mg/สัปดาห์): <input type="number" id="weeklyDose" /></label>
+      <label><input type="checkbox" id="hasBleeding" /> มีเลือดออก</label>
+      <label>โหมด:
+        <select id="mode">
+          <option value="auto">ระบบคำนวณอัตโนมัติ</option>
+          <option value="manual">เลือก % ปรับยาเอง</option>
+        </select>
+      </label>
+      <div id="percentSection" style="display:none;">
+        <label>เลือก % การเปลี่ยนยา:
+          <select id="manualPercent">
+            <option value="-20">-20%</option>
+            <option value="-10">-10%</option>
+            <option value="0" selected>ไม่เปลี่ยน</option>
+            <option value="10">+10%</option>
+            <option value="20">+20%</option>
+          </select>
+        </label>
+      </div>
+      
+    <label>เลือกวันหยุดยา:</label><br>
+    <div id="skipDaysCheckboxes">
+      <label><input type="checkbox" value="0"> อาทิตย์</label>
+      <label><input type="checkbox" value="1"> จันทร์</label>
+      <label><input type="checkbox" value="2"> อังคาร</label>
+      <label><input type="checkbox" value="3"> พุธ</label>
+      <label><input type="checkbox" value="4"> พฤหัส</label>
+      <label><input type="checkbox" value="5"> ศุกร์</label>
+      <label><input type="checkbox" value="6"> เสาร์</label>
+    </div><br>
+    <label>เลือกเม็ดยาที่ใช้:
+<select id="pillOption">
+<option value="both">ใช้ทั้ง 2 mg และ 3 mg</option>
+<option value="2">ใช้เฉพาะ 2 mg</option>
+<option value="3">ใช้เฉพาะ 3 mg</option>
+</select>
+</label>
+<br><label>วันเริ่มต้นสัปดาห์:
+        <select id="startDay">
+          <option value="0">วันอาทิตย์</option>
+          <option value="1" selected>วันจันทร์</option>
+          <option value="2">วันอังคาร</option>
+          <option value="3">วันพุธ</option>
+          <option value="4">วันพฤหัสบดี</option>
+          <option value="5">วันศุกร์</option>
+          <option value="6">วันเสาร์</option>
+        </select>
+      </label>
+      <button onclick="calculateDose()">คำนวณขนาดยา</button>
+    </div>
+    <div class="result-section" id="result"></div>
+  </div>
+  <script src="pill-render.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById("mode").addEventListener("change", function() {
+      document.getElementById("percentSection").style.display =
+        this.value === "manual" ? "block" : "none";
+    });
+  </script>
+</body>
+</html>
